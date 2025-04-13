@@ -1,8 +1,13 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} **/
+const { pathsToModuleNameMapper } = require('ts-jest');
+const { compilerOptions } = require('./tsconfig.json');
+
 module.exports = {
-  testEnvironment: "node",
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }),
   transform: {
-    "^.+\.tsx?$": ["ts-jest",{}],
+    '^.+\\.(ts|tsx)$': 'ts-jest',
   },
-  preset: "ts-jest"
+  setupFiles: ['<rootDir>/jest.setup.js'],
 };

@@ -12,12 +12,12 @@ interface WeatherCardProps {
 
 const WeatherCard = ({ data }: WeatherCardProps) => {
 
-    const temperature = Number(data.main.temp).toFixed(1);
-    const windSpeed = Number(data.wind.speed).toFixed(1);
-    const visibility = (data.visibility / 1000).toFixed(1);
-    const iconName = data.weather[0].icon
+    const temperature: string = Number(data.main.temp).toFixed(1);
+    const windSpeed: string = Number(data.wind.speed).toFixed(1);
+    const visibility: string = (data.visibility / 1000).toFixed(1);
+    const iconName: string = data.weather[0].icon
 
-    const backgroundGradient = getWeatherGradient(data.weather[0].id)
+    const backgroundGradient: string = getWeatherGradient(data.weather[0].id)
 
     return (
         <Container size={600} p={20}>
@@ -35,7 +35,7 @@ const WeatherCard = ({ data }: WeatherCardProps) => {
                         {/* Temperature details */}
                         <Center>
                             <Group gap={0}>
-                                <Image src={`https://openweathermap.org/img/wn/${iconName}@2x.png`} alt="image" width={120} height={120}></Image>
+                                <Image src={`https://openweathermap.org/img/wn/${iconName}@2x.png`} alt="weather-icon" width={120} height={120}></Image>
                                 <Text component='h2' size="xl" style={{ fontSize: "2.5rem", fontWeight: 700 }}>{temperature}°C</Text>
                             </Group>
                         </Center>
