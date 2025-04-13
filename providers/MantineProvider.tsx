@@ -2,9 +2,10 @@ import { createTheme, MantineProvider as ManProvider } from '@mantine/core';
 import React, { PropsWithChildren } from 'react'
 
 
-
 const theme = createTheme({
-    /** Put your mantine theme override here */
+    fontFamily: "Roboto, sans-serif",
+    autoContrast: true
+
 });
 
 const MantineProvider = ({ children }: PropsWithChildren) => {
