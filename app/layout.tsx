@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import MantineProvider from "@/providers/MantineProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +17,10 @@ export default function RootLayout({
       <body
         className={`antialiased`}
       >
-        {children}
+        <MantineProvider>
+          {children}
+        </MantineProvider>
+
       </body>
     </html>
   );
