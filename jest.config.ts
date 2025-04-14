@@ -1,5 +1,5 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} **/
-const { pathsToModuleNameMapper } = require('ts-jest');
+import { pathsToModuleNameMapper } from 'ts-jest';
 const { compilerOptions } = require('./tsconfig.json');
 
 module.exports = {
@@ -7,7 +7,8 @@ module.exports = {
   testEnvironment: 'jsdom',
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }),
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.(ts|tsx|js|jsx)$': 'babel-jest',
   },
-  setupFiles: ['<rootDir>/jest.setup.js'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  setupFiles: ['<rootDir>/jest.setup.ts'],
 };
