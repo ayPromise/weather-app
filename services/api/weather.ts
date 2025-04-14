@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import { env } from "@/config/env";
 import { WeatherAPIRequestParams, WeatherAPIResponse } from "@/types/weather";
-import { CacheItem } from "@/types/cache";
+import { CachedWeatherData } from "@/types/cache";
 
 const weatherAPI : AxiosInstance = axios.create({
     baseURL:env.WEATHER_API_URL,
@@ -22,19 +22,19 @@ export class WeatherService {
     }
 
     private static setCache(data:WeatherAPIResponse) : void{
-        const cacheItem : CacheItem = {
+        const cacheItem : CachedWeatherData = {
             data,
             timestamp:Date.now()
         }
         localStorage.setItem(CACHE_KEY, JSON.stringify(cacheItem))
     }
 
-    private static getFromCache():CacheItem|null{
+    private static getFromCache():CachedWeatherData|null{
         const cacheItem : string | null = localStorage.getItem(CACHE_KEY)
         
         if(!cacheItem) return null
 
-        const parsedCacheItem : CacheItem = JSON.parse(cacheItem)
+        const parsedCacheItem : CachedWeatherData = JSON.parse(cacheItem)
         if(!this.isCacheAlive(parsedCacheItem.timestamp))
         {
             localStorage.removeItem(CACHE_KEY)
@@ -45,26 +45,26 @@ export class WeatherService {
     }
 
 
-    static async getWeatherByCityName(params:WeatherAPIRequestParams) : Promise<WeatherAPIResponse>{
+    static async getWeatherByCityName(params:WeatherAPIRequestParams) : Promise<CachedWeatherData>{
         
         const cachedData = this.getFromCache();
-        if (cachedData) {
-            return cachedData.data;
+        if (cachedData && cachedData.data.name === params.q) {
+            return cachedData;
         }
 
         try{
-            const {data} = await weatherAPI.get<WeatherAPIResponse>('/weather',{
+            const response = await weatherAPI.get('/weather',{
                 params:{
                     q:params.q,
                     units:params.units
                 }
             })
 
-            this.setCache(data)
+            this.setCache(response.data as WeatherAPIResponse)
 
-            return data
+            return this.getFromCache() as CachedWeatherData
         }catch(error){
-            throw new Error("Error with getting weather data")
+            throw new Error(error instanceof Error ? error.message: "Something")
         }
     }
 }

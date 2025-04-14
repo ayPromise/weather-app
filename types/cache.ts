@@ -1,6 +1,6 @@
 import { WeatherAPIResponse } from "./weather";
 
-export interface CacheItem{
+export interface CachedWeatherData{
     data:WeatherAPIResponse,
     timestamp:number
 }

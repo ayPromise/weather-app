@@ -1,42 +1,57 @@
 import React from 'react'
-import { Card, Group, Text, ThemeIcon, SimpleGrid, Grid, Center, Container } from '@mantine/core';
+import { Card, Group, Text, ThemeIcon, SimpleGrid, Grid, Center, Container, Box } from '@mantine/core';
 import { IconTemperature, IconWind, IconDroplet, IconEye } from '@tabler/icons-react';
 import Image from 'next/image';
 import getWeatherGradient from '@/utils/getCardGradient';
-import { WeatherAPIResponse } from '@/types/weather';
+import { CachedWeatherData } from '@/types/cache';
 
 
 interface WeatherCardProps {
-    data: WeatherAPIResponse
+    cachedData: CachedWeatherData
 }
 
-const WeatherCard = ({ data }: WeatherCardProps) => {
+const WeatherCard = ({ cachedData }: WeatherCardProps) => {
+
+    const { data } = cachedData
 
     const temperature: string = Number(data.main.temp).toFixed(1);
     const windSpeed: string = Number(data.wind.speed).toFixed(1);
     const visibility: string = (data.visibility / 1000).toFixed(1);
     const iconName: string = data.weather[0].icon
 
-    const backgroundGradient: string = getWeatherGradient(data.weather[0].id)
+    const backgroundGradient: string = getWeatherGradient(cachedData.data.weather[0].id)
 
     return (
         <Container size={600} p={20}>
-            <Card shadow="sm" padding="lg" radius="md" withBorder style={{
+            <Card shadow="lg" padding="lg" radius="md" withBorder style={{
                 background: backgroundGradient,
-                height: 300
+                height: 330
             }}>
+                <Box style={{ position: "absolute", top: 7, right: 10 }}>
+                    <Text style={{ color: "gray", fontSize: 12 }}>
+                        last updated {new Date(cachedData.timestamp).toLocaleTimeString()}
+                    </Text>
+                </Box>
                 <Center>
                     <SimpleGrid cols={1} spacing={0}>
                         {/* Name and weather details */}
                         <Center>
-                            <Text component='h1' fw={700} style={{ fontSize: "1.7rem" }}>{data.name}</Text>
+                            <Text component='h1' fw={700} style={{ fontSize: "1.7rem" }}>{cachedData.data.name}</Text>
                         </Center>
 
                         {/* Temperature details */}
                         <Center>
-                            <Group gap={0}>
-                                <Image src={`https://openweathermap.org/img/wn/${iconName}@2x.png`} alt="weather-icon" width={120} height={120}></Image>
-                                <Text component='h2' size="xl" style={{ fontSize: "2.5rem", fontWeight: 700 }}>{temperature}°C</Text>
+                            <Group gap={10}>
+                                <Image src={`https://openweathermap.org/img/wn/${iconName}@2x.png`} alt="weather-icon" width={140} height={140}></Image>
+                                <Grid>
+                                    <Grid.Col span={12} p={0}>
+                                        <Text component='h2' size="xl" style={{ fontSize: "2.5rem", fontWeight: 700, width: 0 }}>{temperature}°C</Text>
+                                    </Grid.Col>
+
+                                    <Grid.Col span={12} p={0}>
+                                        <Text component='span' style={{ fontSize: "1.5rem", fontWeight: 700, width: 0 }}>{data.weather[0].description}</Text>
+                                    </Grid.Col>
+                                </Grid>
                             </Group>
                         </Center>
 
@@ -44,28 +59,28 @@ const WeatherCard = ({ data }: WeatherCardProps) => {
                         <Grid>
                             <Grid.Col span={8}>
                                 <WeatherDetail
-                                    icon={<IconWind size={20} />}
+                                    icon={<IconWind size={23} />}
                                     label="Wind"
                                     textContent={`${windSpeed} m/s`}
                                 />
                             </Grid.Col>
                             <Grid.Col span={4}>
                                 <WeatherDetail
-                                    icon={<IconDroplet size={20} />}
+                                    icon={<IconDroplet size={23} />}
                                     label="Humidity"
                                     textContent={`${data.main.humidity}%`}
                                 />
                             </Grid.Col>
                             <Grid.Col span={8}>
                                 <WeatherDetail
-                                    icon={<IconEye size={20} />}
+                                    icon={<IconEye size={23} />}
                                     label="Visibility"
                                     textContent={`${visibility} km`}
                                 />
                             </Grid.Col>
                             <Grid.Col span={4}>
                                 <WeatherDetail
-                                    icon={<IconTemperature size={20} />}
+                                    icon={<IconTemperature size={23} />}
                                     label="Pressure"
                                     textContent={`${data.main.pressure} hPa`}
                                 />
@@ -92,10 +107,10 @@ function WeatherDetail({
             <ThemeIcon size="md" variant="light" color="blue">
                 {icon}
             </ThemeIcon>
-            <div>
+            <Box>
                 <Text size="xs" color="dimmed">{label}</Text>
                 <Text size="sm">{textContent}</Text>
-            </div>
+            </Box>
         </Group>
     );
 }

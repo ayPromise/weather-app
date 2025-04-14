@@ -3,7 +3,7 @@ import React, { PropsWithChildren } from 'react'
 
 
 const theme = createTheme({
-    fontFamily: "Roboto, sans-serif",
+    fontFamily: "Montserrat",
     autoContrast: true
 
 });
