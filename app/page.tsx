@@ -15,7 +15,7 @@ const Home = () => {
   const [lastSearchValue, setLastSearchValue] = useState<string>('')
 
   const handleSubmit = () => {
-    if (searchValue !== lastSearchValue) {
+    if (!!searchValue && searchValue !== lastSearchValue) {
       refetch({ q: searchValue, units: "metric" })
       setLastSearchValue(searchValue)
     }

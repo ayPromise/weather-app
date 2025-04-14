@@ -30,7 +30,10 @@ describe(WeatherCard, () => {
         expect(screen.getByText('40%')).toBeInTheDocument();
         expect(screen.getByText('1010 hPa')).toBeInTheDocument();
         expect(screen.getByText('10.0 km')).toBeInTheDocument();
-        expect(screen.getByAltText('weather-icon')).toBeInTheDocument();
+        const weatherIcon = screen.getByAltText('weather-icon');
+        expect(weatherIcon).toBeInTheDocument();
+        expect(weatherIcon).toHaveAttribute('src', expect.stringContaining('01d'));
+        expect(screen.getByText('sunny and warm')).toBeInTheDocument();
     });
 });
 

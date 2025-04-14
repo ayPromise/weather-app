@@ -1,9 +1,10 @@
 import React from 'react'
-import { Card, Group, Text, ThemeIcon, SimpleGrid, Grid, Center, Container, Box } from '@mantine/core';
+import { Card, Group, Text, SimpleGrid, Grid, Center, Container, Box } from '@mantine/core';
 import { IconTemperature, IconWind, IconDroplet, IconEye } from '@tabler/icons-react';
 import Image from 'next/image';
 import getWeatherGradient from '@/utils/getCardGradient';
 import { CachedWeatherData } from '@/types/cache';
+import WeatherDetail from './WeatherDetail';
 
 
 interface WeatherCardProps {
@@ -93,26 +94,4 @@ const WeatherCard = ({ cachedData }: WeatherCardProps) => {
     );
 }
 
-function WeatherDetail({
-    icon,
-    label,
-    textContent
-}: {
-    icon: React.ReactNode;
-    label: string;
-    textContent: string;
-}) {
-    return (
-        <Group>
-            <ThemeIcon size="md" variant="light" color="blue">
-                {icon}
-            </ThemeIcon>
-            <Box>
-                <Text size="xs" color="dimmed">{label}</Text>
-                <Text size="sm">{textContent}</Text>
-            </Box>
-        </Group>
-    );
-}
-
-export default WeatherCard;
+export default WeatherCard

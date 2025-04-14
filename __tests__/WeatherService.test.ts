@@ -3,12 +3,10 @@ import { CachedWeatherData } from "@/types/cache";
 import { WeatherAPIRequestParams } from "@/types/weather";
 import axios, { AxiosError } from "axios";
 
-// Create a mock for the instance returned by axios.create()
 const mockGet = jest.fn();
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-// When axios.create() is called, return an object with a `get` method
 mockedAxios.create.mockReturnValue({
   get: mockGet
 } as any);
