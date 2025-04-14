@@ -1,6 +1,6 @@
 import { WeatherService } from "@/services/api/weather";
 import { CachedWeatherData } from "@/types/cache";
-import { WeatherAPIRequestParams, WeatherAPIResponse } from "@/types/weather";
+import { WeatherAPIRequestParams} from "@/types/weather";
 import { useEffect, useState } from "react";
 
 export interface UseWeatherReturn{
@@ -19,11 +19,11 @@ const useWeather = (params:WeatherAPIRequestParams) : UseWeatherReturn=>{
     const fetchWeather = async (params:WeatherAPIRequestParams)=>{
         try{
             setLoading(true)
+            setError(null)
             const weatherData : CachedWeatherData = await WeatherService.getWeatherByCityName(params)
             setData(weatherData)
-            setError(null)
         }catch(error){
-            setError("No city was found")
+            setError((error as Error).message)
             setData(null)
         }finally{
             setLoading(false)

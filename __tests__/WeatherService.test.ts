@@ -47,7 +47,7 @@ describe("WeatherService", () => {
     expect(result.data.weather[0]).toHaveProperty("description", "sunny and warm");
   });
 
-    // Not working
+    // Working
     it("handling no city found", async () => {
         const wrongParams : WeatherAPIRequestParams = {q:"asdsadasd", units:"metric"}
       
