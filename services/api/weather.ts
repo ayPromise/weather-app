@@ -64,7 +64,18 @@ export class WeatherService {
 
             return this.getFromCache() as CachedWeatherData
         }catch(error){
-            throw new Error(error instanceof Error ? error.message: "Something")
+             if (axios.isAxiosError(error)) {
+                if (error.response?.status === 404) {
+                    throw new Error("City not found");
+                } else if (error.response?.status === 401) {
+                    throw new Error("Invalid API key");
+                } else if (error.response?.status) {
+                    throw new Error(`API error: ${error.response.status}`);
+                }
+                throw new Error("Network error or bad request");
+            } else {
+                throw new Error("Something went wrong");
+            }
         }
     }
 }
