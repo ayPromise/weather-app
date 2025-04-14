@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Weather Application
 
-First, run the development server:
+The weather application that integrates with a OpenWeatherMap API. The app is built using React.js, Next.js and TypeScript.
+
+
+## Screenshots
+
+![Sunny weather](https://github.com/user-attachments/assets/41221d9b-d701-4c76-87c7-687ff354a516)
+
+![Clouds](https://github.com/user-attachments/assets/7fe98905-9a46-4e13-8f1a-770697bb1a91)
+
+![Drizzle](https://github.com/user-attachments/assets/e8612f31-8ba5-47e7-8359-611b66047a57)
+
+![Error](https://github.com/user-attachments/assets/e364327a-97a9-441e-a2b5-d2aff01d9b2d)
+
+
+## Run Locally
+
+Clone the project
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  git clone git@github.com:ayPromise/weather-app.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Go to the project directory
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+  cd weather-app
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Install dependencies
 
-## Learn More
+```bash
+  npm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+Start the server
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+  npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Running Tests
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To run Jest tests, run the following command
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+  npm run test
+```
+
+
+## Lessons Learned
+
+One of the main challenges was incorporating Jest, which I had never used before. While it wasn't fully functional as expected, I consider it a stepping stone in the process. I understand its value so mastering Jest will be an invaluable asset moving forward.
+
+Additionally, I explored Mantine UI for the first time. Integrating a new UI framework brought its own set of challenges. But to be fair Mantine's modern design system is very powerful and I look forward to fully leveraging it for future projects.
+
+As for the rest of the project, it primarily served as a good refresher on best practices and the core concepts that I have worked with before. 
+
+## 🔗 Links
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/dan-dziu-8b83a9249)
+
+## Feedback
+
+If you have any feedback, please reach out to me at fatherpother@gmail.com or Telegram @danylo1554
+
